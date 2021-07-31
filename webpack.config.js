@@ -1,17 +1,12 @@
 const path = require("path")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssStractPlugin = require('mini-css-extract-plugin')
-const CopyPlugin = require('copy-webpack-plugin')
-// const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-// const TerserPlugin = requiere('terser-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
-
 
 /** @type {import('webpack').Configuration} */
 
 module.exports = {
   entry: "./src/index.js",
-  // mode: 'production',
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].[contenthash].js",
@@ -42,26 +37,11 @@ module.exports = {
             test:  /\.(png|svg|jpg|jpeg|gif)$/i,
             type: "asset/resource",
           },
-          // {
-          //   test: /\.(woff|woff2)$/,
-          //   use: {
-          //     loader: 'url-loader',
-          //     options: {
-          //       limit: 10000,
-          //       mimetype: "aplication/font-woff",
-          //       name: "[name].[ext]",
-          //       outputPath: "./assets/fonts/",
-          //       publicPath: "./assets/fonts/",
-          //       esModule: false,
-          //     }
-          //   }
-          // }
           {
-            test: /\.(woff|woff2)$/i,  // Tipos de fuentes a incluir
-            type: 'asset/resource',  // Tipo de módulo a usar (este mismo puede ser usado para archivos de imágenes)
+            test: /\.(woff|woff2)$/i,
+            type: 'asset/resource',
             generator: {
               filename: 'assets/fonts/[hash][ext][query]',
-              // filename: 'assets/fonts/[name].[contenthash].[ext]',  // Directorio de salida
             },
           },
       ]
@@ -75,21 +55,9 @@ module.exports = {
       new MiniCssStractPlugin({
         filename: 'assets/[name].[contenthash].css'
       }),
-      // new CopyPlugin({
-      //   patterns: [
-      //     {
-      //       from: path.resolve(__dirname, "src", "assets/images"),
-      //       to: "assets/images"
-      //     }
-      //   ]
-      // }),
       new Dotenv(),
   ],
   optimization: {
-    minimize: true, // ya no usamos minimizer - da error, en webpack 5 ya incluye 
-    // minimizer: [
-    //   new CssMinimizerPlugin(),
-    //   new TerserPlugin(),
-    // ]
+    minimize: true,
   }
 };

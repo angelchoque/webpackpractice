@@ -5,6 +5,7 @@ import instagram from '../assets/images/instagram.png'
 
 const Template = async () => {
   const data = await getData();
+  // debugger
   const view = `
     <div class="About">
       <div class="card">
